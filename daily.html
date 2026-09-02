@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Log &middot; Save The Internet</title>
+<meta name="description" content="What got built, what broke, and what was wrong. Written the day it happened, never edited after.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0C10'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%235CE1A6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <span class="brand-dot" aria-hidden="true"></span>
+        Save The Internet
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <span aria-hidden="true"></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pitch.html">The Pitch</a></li>
+        <li><a href="daily.html" aria-current="page">Daily Log</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="nav-cta"><a class="btn btn--primary btn--sm" href="contribute.html">Contribute</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Daily log</span>
+      <h1>What got built, what broke, what was wrong.</h1>
+      <p class="lead">
+        Written the day it happened. Never edited afterwards. Corrections are added underneath with
+        their own date, and the original stays exactly as it was published.
+      </p>
+      <div class="mt-l">
+        <span class="tag">Newest first</span>
+        <span class="tag">1 entry</span>
+        <span class="tag">No tracking</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+
+      <div class="log">
+
+        <!-- =================================================================
+             ENTRY TEMPLATE - copy this block, put it at the TOP of .log,
+             and fill it in. Keep entries newest first.
+
+             <article class="log-entry" id="day-002" data-reveal>
+               <div class="log-meta">
+                 <b>Day 002</b>
+                 <time datetime="2026-09-03">3 Sep 2026</time>
+               </div>
+               <div class="log-body">
+                 <h3>Headline for the day</h3>
+                 <p>What you did, what happened, what you got wrong.</p>
+               </div>
+             </article>
+
+             Also update the entry count in the tag row above.
+             ================================================================= -->
+
+        <article class="log-entry" id="day-001" data-reveal>
+          <div class="log-meta">
+            <b>Day 001</b>
+            <time datetime="2026-09-02">2 Sep 2026</time>
+          </div>
+          <div class="log-body">
+            <h3>Starting in public, on purpose</h3>
+            <p>
+              First day. The site exists: five pages, no tracking, no build step, no framework. It
+              is deliberately plain files, because a project arguing that the web should be durable
+              and ownable should not itself depend on a toolchain that will be broken in three
+              years.
+            </p>
+            <p>
+              The temptation today was to plan. Write a roadmap, sketch the tool, design a logo,
+              decide on a governance model for a project with one person in it. All of that is
+              procrastination wearing a serious face. The rule going forward is that a day counts
+              only if something shipped or something was learned, and writing a plan is neither.
+            </p>
+            <p>
+              What is still missing, honestly: every statistic on the home page is a placeholder,
+              the contribute form is not connected to anything, and the about page does not yet say
+              who is writing this. Those are the next three jobs, in that order.
+            </p>
+            <p>
+              One open question that will decide a lot: is the useful output here documentation or
+              tooling? Writing is faster and reaches more people. Tools are slower and actually
+              change what someone can do on a Tuesday afternoon. Leaning towards tools, with the
+              documentation as the thing that makes the tools usable, but that is not settled.
+            </p>
+            <div class="mt-l">
+              <span class="tag">Setup</span>
+              <span class="tag">Scope</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="notice mt-l" data-reveal>
+        <b>Adding an entry:</b> open <span class="mono">daily.html</span>, copy the commented
+        template just above the first entry, paste it at the top of the log, and change the day
+        number, date and text. Nothing to rebuild. Save the file and refresh.
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section cta-band">
+    <div class="wrap">
+      <div class="split split--center">
+        <div data-reveal>
+          <h2>Following along is a contribution.</h2>
+        </div>
+        <div data-reveal>
+          <p class="lead">
+            Reading the log and telling us where the reasoning is weak is genuinely more useful than
+            silent agreement.
+          </p>
+          <div class="btn-row mt-l">
+            <a class="btn btn--primary" href="contribute.html">Get involved</a>
+            <a class="btn btn--ghost" href="pitch.html">Read the pitch</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-col">
+        <a class="brand" href="index.html" style="margin-bottom:14px">
+          <span class="brand-dot" aria-hidden="true"></span>
+          Save The Internet
+        </a>
+        <p>An independent, non-commercial campaign for a web that people own rather than rent.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pitch.html">The Pitch</a></li>
+          <li><a href="daily.html">Daily Log</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">RSS</a></li>
+          <li><a href="#">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Save The Internet</span>
+      <span>No trackers. No ads. No accounts.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<title>Save The Internet Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ---- Tokens: light is the base, both dark paths redefine only tokens ---- */
+  :root {
+    --bg:        #EAECEF;
+    --panel:     #FFFFFF;
+    --panel-sub: #F3F5F7;
+    --edge:      #D3D7DD;
+    --edge-soft: #E2E5EA;
+    --ink:       #15181C;
+    --muted:     #6A727C;
+    --accent:    #A55E22;
+    --accent-bg: rgba(165, 94, 34, 0.10);
+    --bezel:     #23262B;
+    --shadow:    0 1px 2px rgba(15, 20, 26, 0.06), 0 12px 34px rgba(15, 20, 26, 0.09);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #14161A;
+      --panel:     #1C2026;
+      --panel-sub: #22262D;
+      --edge:      #2C3138;
+      --edge-soft: #262B32;
+      --ink:       #E7E9EC;
+      --muted:     #98A0AA;
+      --accent:    #E2965A;
+      --accent-bg: rgba(226, 150, 90, 0.14);
+      --bezel:     #0B0D10;
+      --shadow:    0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.42);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg:        #14161A;
+    --panel:     #1C2026;
+    --panel-sub: #22262D;
+    --edge:      #2C3138;
+    --edge-soft: #262B32;
+    --ink:       #E7E9EC;
+    --muted:     #98A0AA;
+    --accent:    #E2965A;
+    --accent-bg: rgba(226, 150, 90, 0.14);
+    --bezel:     #0B0D10;
+    --shadow:    0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.42);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Archivo", "Segoe UI", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Control bar ------------------------------------------------------ */
+  .bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--panel);
+    border-bottom: 1px solid var(--edge);
+    padding: 14px clamp(16px, 3vw, 30px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 26px;
+  }
+
+  .bar-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-right: auto;
+  }
+  .bar-title strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .bar-title span {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px;
+    background: var(--panel-sub);
+    border: 1px solid var(--edge-soft);
+    border-radius: 10px;
+  }
+
+  .tab {
+    appearance: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 500;
+    padding: 7px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] {
+    background: var(--accent-bg);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---- Bench ------------------------------------------------------------ */
+  .bench {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: clamp(20px, 3vw, 36px);
+    align-items: start;
+    padding: clamp(20px, 3vw, 36px);
+    max-width: 1600px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 980px) {
+    .bench { grid-template-columns: minmax(0, 1fr); }
+    .device--phone { max-width: 340px; }
+  }
+
+  .device { min-width: 0; }
+
+  .device-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .device-label b {
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  /* Browser chrome for the desktop frame */
+  .chrome {
+    border: 1px solid var(--edge);
+    border-radius: 12px 12px 0 0;
+    border-bottom: 0;
+    background: var(--panel-sub);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .dots { display: flex; gap: 6px; flex-shrink: 0; }
+  .dots i {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--edge);
+    display: block;
+  }
+  .urlbar {
+    flex: 1;
+    min-width: 0;
+    background: var(--panel);
+    border: 1px solid var(--edge-soft);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Phone bezel */
+  .bezel {
+    background: var(--bezel);
+    border-radius: 34px;
+    padding: 11px;
+    box-shadow: var(--shadow);
+  }
+  .notch {
+    width: 92px; height: 5px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.22);
+    margin: 0 auto 9px;
+  }
+
+  /* The scaled viewport */
+  .stage {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #0A0C10;
+  }
+  .device--desktop .stage {
+    border: 1px solid var(--edge);
+    border-radius: 0 0 12px 12px;
+    box-shadow: var(--shadow);
+  }
+  .device--phone .stage { border-radius: 24px; }
+
+  .stage iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    transform-origin: top left;
+    background: #0A0C10;
+  }
+
+  .hint {
+    margin: 8px 2px 0;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* ---- Footnote --------------------------------------------------------- */
+  .note {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 3vw, 36px) clamp(28px, 4vw, 48px);
+  }
+  .note-inner {
+    border: 1px solid var(--edge);
+    border-left: 3px solid var(--accent);
+    background: var(--panel);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    font-size: 0.86rem;
+    color: var(--muted);
+    max-width: 78ch;
+  }
+  .note-inner b { color: var(--ink); font-weight: 600; }
+  .note-inner code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.82em;
+    background: var(--panel-sub);
+    border: 1px solid var(--edge-soft);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+  .note-inner p { margin: 0 0 0.7em; }
+  .note-inner p:last-child { margin: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.001ms !important; }
+  }
+</style>
+
+<div class="bar">
+  <div class="bar-title">
+    <strong>Save The Internet</strong>
+    <span class="mono">Static preview &middot; 5 pages</span>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Page">
+    <button class="tab" role="tab" data-page="index" aria-selected="true">Home</button>
+    <button class="tab" role="tab" data-page="pitch" aria-selected="false">Pitch</button>
+    <button class="tab" role="tab" data-page="daily" aria-selected="false">Daily</button>
+    <button class="tab" role="tab" data-page="contribute" aria-selected="false">Contribute</button>
+    <button class="tab" role="tab" data-page="about" aria-selected="false">About</button>
+  </div>
+</div>
+
+<div class="bench">
+  <section class="device device--desktop">
+    <div class="device-label">
+      <b>Desktop</b>
+      <span class="mono">1440 &times; 900</span>
+    </div>
+    <div class="chrome">
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="urlbar mono" id="urlbar">savetheinternet.org/index.html</div>
+    </div>
+    <div class="stage" data-w="1440" data-h="900">
+      <iframe id="frame-desktop" width="1440" height="900" title="Desktop preview" loading="eager"></iframe>
+    </div>
+    <p class="hint">Scaled to fit. Layout is rendered at a true 1440px viewport.</p>
+  </section>
+
+  <section class="device device--phone">
+    <div class="device-label">
+      <b>Phone</b>
+      <span class="mono">390 &times; 844</span>
+    </div>
+    <div class="bezel">
+      <div class="notch" aria-hidden="true"></div>
+      <div class="stage" data-w="390" data-h="844">
+        <iframe id="frame-phone" width="390" height="844" title="Phone preview" loading="eager"></iframe>
+      </div>
+    </div>
+    <p class="hint">Tap the menu button inside the frame to test the mobile nav.</p>
+  </section>
+</div>
+
+<div class="note">
+  <div class="note-inner">
+    <p>
+      <b>This is a snapshot, not a live view.</b> The CSS and JavaScript were inlined into each
+      page when this file was generated. After editing the site, run
+      <code>sh tools/build-preview.sh</code> again or you will be looking at the old version.
+    </p>
+    <p>
+      Both frames render at their real pixel widths, so media queries and the mobile navigation
+      behave exactly as they do on a device. Only the display is scaled down.
+    </p>
+  </div>
+</div>
+
+<script>
+/*__PAGES__*/
+
+(function () {
+  "use strict";
+
+  var decoder = new TextDecoder("utf-8");
+
+  function decode(b64) {
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return decoder.decode(bytes);
+  }
+
+  var desktop = document.getElementById("frame-desktop");
+  var phone = document.getElementById("frame-phone");
+  var urlbar = document.getElementById("urlbar");
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+
+  function show(page) {
+    var html = decode(PAGES[page]);
+    desktop.srcdoc = html;
+    phone.srcdoc = html;
+    urlbar.textContent = "savetheinternet.org/" + page + ".html";
+    tabs.forEach(function (t) {
+      t.setAttribute("aria-selected", t.dataset.page === page ? "true" : "false");
+    });
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { show(t.dataset.page); });
+  });
+
+  function fit() {
+    document.querySelectorAll(".stage").forEach(function (stage) {
+      var w = parseFloat(stage.dataset.w);
+      var h = parseFloat(stage.dataset.h);
+      var k = Math.min(1, stage.clientWidth / w);
+      stage.style.height = Math.round(h * k) + "px";
+      stage.querySelector("iframe").style.transform = "scale(" + k + ")";
+    });
+  }
+
+  window.addEventListener("resize", fit);
+  fit();
+  show("index");
+})();
+</script>
